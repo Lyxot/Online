@@ -10,12 +10,14 @@
 ## 使用方法
 下载Online.py,放入MCDReforged根目录下的plugins文件夹里,开启服务器的rcon功能。以原版服务器为示例,进入服务端根目录下,打开`server.properties`文件,找到`enable-rcon`,改为true,找到`rcon.password`,修改为你的密码,找到`rcon.port`,修改为你的端口
 修改完成后的这三项示例:
-```enable-rcon=true
+```
+enable-rcon=true
 rcon.password=passwd
 rcon.port=25575
 ```
 启动MCDReforged,插件会在`config`目录下自动生成配置文件,其名为`online.json`其内容如下:
-```{
+```
+{
     "join": true,
     "1":{
         "name": "ServerA",
