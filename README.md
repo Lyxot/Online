@@ -4,6 +4,7 @@
 ***
 ## 简介
 借助MC服务器原版的rcon功能,发送list指令,获得玩家列表
+
 ![image](https://github.com/A-JiuA/Online/blob/master/pictures/1.png)
 
 ***
@@ -31,13 +32,13 @@ rcon.port=25575
 `"join"`为是否开启进服提示,true为开启,false为关闭
 `"1"`为你的服务器序号,意义为第一个服务器。序号从1开始填,第二个服务器则为2,以此类推
 
-    `"name"`为服务器的别称,如:生存服,镜像服
+   `"name"`为服务器的别称,如:生存服,镜像服
 
-    `"host"`为服务器的IP,如:127.0.0.1
+   `"host"`为服务器的IP,如:127.0.0.1
 
-    `"port"`为你设置的服务器rcon端口,如:25575
+   `"port"`为你设置的服务器rcon端口,如:25575
 
-    `"password"`为你设置的服务器rcon密码
+   `"password"`为你设置的服务器rcon密码
 
 多个服务器的`online.json`示例:
 ```
