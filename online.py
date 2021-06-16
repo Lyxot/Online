@@ -4,14 +4,15 @@ import struct
 import time
 import os
 import json
+from mcdreforged.api.rtext import  RAction,RText,RColor,RTextList
 
 PLUGIN_METADATA = {
 	'id': 'online',
-	'version': '1.0.0',
+	'version': '1.1.0',
 	'link': 'https://github.com/FAS-Server/online',
-    'author': [
-        'A_jiuA', 'NineKing'
-    ],
+        'author': [
+            'A_jiuA', 'Nine_King', 'YehowahLiu'
+        ],
 	'dependencies': {
         'mcdreforged': '>=1.0.0',
     }
@@ -135,14 +136,23 @@ def get_list():  # 获得玩家列表
             else:
                 player_list = ''
                 player_number = 0
+            list += RTextList(
+                RText(name,color=RColor.aqua).c(RAction.run_command,f"/server {name}"),
+                RText(" 在线人数:",color=RColor.gray),
+                RText(str(player_number),color=RColor.green)
+            )
             if player_number != 0:
-                list = list + '§b' + name + ' §7在线人数:' + '§6' + str(player_number) + '  §7在线列表:' + '§6' + player_list + '\n'
-            else:
-                list = list + '§b' + name + ' §7在线人数:' + '§6' + str(player_number) + '\n'
+                list += RTextList(
+                    RText(" 在线列表:",color=RColor.gray),
+                    RText(player_list,RColor.gold)
+                )
+            list += "\n"
         except:
-            list = list + '§b' + name + ' §c未开启' + '\n'
+            list += RTextList(
+                RText(name,color=RColor.aqua),
+                RText(" 未开启\n",color=RColor.red)
+            )
         times += 1
-    list = list[:len(list) - 1]
     return list
 
 def on_info(server,info):  # 指令显示
