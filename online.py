@@ -23,6 +23,7 @@ configPath = 'config/online.json'
 defultConfig = '''
 {
     "join": true,
+    "click_event": true,
     "1":{
         "name": "ServerA",
         "host": "127.0.0.1",
@@ -117,6 +118,13 @@ def get_number(): # 获取服务器数量
         pass
     return number
 
+def get_server_rtext(name):
+    config = get_config()
+    if config['click_event']:
+        return RText(name,color=RColor.aqua).c(RAction.run_command,f"/server {name}")
+    else:
+        return RText(name,color=RColor.aqua)
+
 def get_list():  # 获得玩家列表
     times = 0
     list = ''
@@ -137,7 +145,7 @@ def get_list():  # 获得玩家列表
                 player_list = ''
                 player_number = 0
             list += RTextList(
-                RText(name,color=RColor.aqua).c(RAction.run_command,f"/server {name}"),
+                get_server_rtext(name),
                 RText(" 在线人数:",color=RColor.gray),
                 RText(str(player_number),color=RColor.green)
             )

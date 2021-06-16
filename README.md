@@ -30,10 +30,13 @@ rcon.port=25575
 ```
 其中,  
  `"join"`为是否开启进服提示,true为开启,false为关闭
+ `"click_event"`为是否启用点击服务器名切换服务器的点击事件
 
  `"1"`为你的服务器序号,代表第一个服务器。序号从`"1"`开始填,第二个服务器则为`"2"`,以此类推
 
-   `"name"`为服务器的别称,如:生存服,镜像服
+   ~~`"name"`为服务器的别称,如:生存服,镜像服~~
+
+   `"name"`为服务器名称, 如果`"click_event"`设置为true，请保持与跨服配置相同的服务器名，即`/server`指令后的对应名称
 
    `"host"`为服务器的IP,如:127.0.0.1
 
@@ -45,26 +48,27 @@ rcon.port=25575
 ```
 {
     "join": true,
+    "click_event": true,
     "1":{
-        "name": "生存服",
+        "name": "Survival",
         "host": "127.0.0.1",
         "port": "25575",
         "password": "passwd"
     },
     "2":{
-        "name": "镜像服",
+        "name": "Mirror",
         "host": "127.0.0.1",
         "port": "25595",
         "password": "passwd"
     },
     "3":{
-        "name": "创造服",
+        "name": "Creative",
         "host": "127.0.0.1",
         "port": "25555",
         "password": "passwd"
     },
     "4":{
-        "name": "模组服",
+        "name": "Mods",
         "host": "10.1.1.191",
         "port": "200001",
         "password": "passwd"
