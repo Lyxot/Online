@@ -4,13 +4,26 @@ import struct
 import time
 import os
 import json
+from mcdreforged.api.rtext import  RAction,RText,RColor,RTextList
 
+PLUGIN_METADATA = {
+	'id': 'online',
+	'version': '1.1.0',
+	'link': 'https://github.com/FAS-Server/online',
+        'author': [
+            'A_jiuA', 'Nine_King', 'YehowahLiu'
+        ],
+	'dependencies': {
+        'mcdreforged': '>=1.0.0',
+    }
+}
 
 # 默认参数，不要修改
 configPath = 'config/online.json'
 defultConfig = '''
 {
     "join": true,
+    "click_event": true,
     "1":{
         "name": "ServerA",
         "host": "127.0.0.1",
@@ -105,6 +118,13 @@ def get_number(): # 获取服务器数量
         pass
     return number
 
+def get_server_rtext(name):
+    config = get_config()
+    if config['click_event']:
+        return RText(name,color=RColor.aqua).c(RAction.run_command,f"/server {name}")
+    else:
+        return RText(name,color=RColor.aqua)
+
 def get_list():  # 获得玩家列表
     times = 0
     list = ''
@@ -124,24 +144,33 @@ def get_list():  # 获得玩家列表
             else:
                 player_list = ''
                 player_number = 0
+            list += RTextList(
+                get_server_rtext(name),
+                RText(" 在线人数:",color=RColor.gray),
+                RText(str(player_number),color=RColor.green)
+            )
             if player_number != 0:
-                list = list + '§b' + name + ' §7在线人数:' + '§6' + str(player_number) + '  §7在线列表:' + '§6' + player_list + '\n'
-            else:
-                list = list + '§b' + name + ' §7在线人数:' + '§6' + str(player_number) + '\n'
+                list += RTextList(
+                    RText(" 在线列表:",color=RColor.gray),
+                    RText(player_list,RColor.gold)
+                )
+            list += "\n"
         except:
-            list = list + '§b' + name + ' §c未开启' + '\n'
+            list += RTextList(
+                RText(name,color=RColor.aqua),
+                RText(" 未开启\n",color=RColor.red)
+            )
         times += 1
-    list = list[:len(list) - 1]
     return list
 
 def on_info(server,info):  # 指令显示
     if info.content == '!!online':
         server.say(get_list())
 
-def on_player_joined(server, player):  # 进服提示
+def on_player_joined(server, player, info):  # 进服提示
     config = get_config()
     if config['join']:
         server.tell(player,get_list())
 
 def on_load(server,old): # 添加帮助
-    server.add_help_message('!!online', '查询在线列表/人数')
+    server.register_help_message('!!online', '查询在线列表/人数')
