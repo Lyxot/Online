@@ -5,6 +5,17 @@ import time
 import os
 import json
 
+PLUGIN_METADATA = {
+	'id': 'online',
+	'version': '1.0.0',
+	'link': 'https://github.com/FAS-Server/online',
+    'author': [
+        'A_jiuA', 'NineKing'
+    ],
+	'dependencies': {
+        'mcdreforged': '>=1.0.0',
+    }
+}
 
 # 默认参数，不要修改
 configPath = 'config/online.json'
@@ -138,10 +149,10 @@ def on_info(server,info):  # 指令显示
     if info.content == '!!online':
         server.say(get_list())
 
-def on_player_joined(server, player):  # 进服提示
+def on_player_joined(server, player, info):  # 进服提示
     config = get_config()
     if config['join']:
         server.tell(player,get_list())
 
 def on_load(server,old): # 添加帮助
-    server.add_help_message('!!online', '查询在线列表/人数')
+    server.register_help_message('!!online', '查询在线列表/人数')
